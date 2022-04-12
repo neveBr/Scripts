@@ -1,0 +1,37 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// Base Serializeable Dictionary
+/// Example: 
+/// [Serializable] 
+/// public class ExampleSerializableDictionary : SerializableDictionary<string, string> { }
+/// ***Note*** TKey, TValue must be [Serializable]
+/// </summary>
+[Serializable]
+public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+{
+    [Serializable] struct KeyVal
+    {
+        public TKey Key;
+        public TValue Value;
+    }
+    [SerializeField] List<KeyVal> keyVals = new List<KeyVal>();
+
+
+
+    public void OnBeforeSerialize()
+    {
+    }
+
+    // load dictionary from lists
+    public void OnAfterDeserialize()
+    {
+        this.Clear();
+
+        for (int i = 0; i < keyVals.Count; i++)
+            this.Add(keyVals[i].Key, keyVals[i].Value);
+    }
+}
