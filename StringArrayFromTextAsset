@@ -1,0 +1,16 @@
+using UnityEngine;
+using System;
+
+public class ArrayFromText : MonoBehaviour
+{
+    [Header("Dependencies")]
+    [SerializeField]
+    TextAsset _file;
+    [SerializeField]
+    string[] _array;
+
+    private void OnValidate()
+    {
+        _array = _file ? _file.text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries) : null;
+    }
+}
