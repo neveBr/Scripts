@@ -1,0 +1,34 @@
+using UnityEngine;
+using System;
+
+public class ItemArrayContainer : MonoBehaviour
+{
+    public class Item
+    {
+        public string name;
+        public int price;
+        public Color color;
+    }
+
+    [Header("Dependencies")]
+    [SerializeField]
+    TextAsset _file;
+    [SerializeField]
+    Item[] _items;
+
+    private void OnValidate()
+    {
+        var lines = _file ? _file.text.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries) : null;
+    }
+    Item ConvertToItem(string line)
+    {
+        var parts = line.Split(',');
+        return new Item
+        {
+            name = parts[0],
+            price = int.TryParse(parts[1], out var p) ? p : 0,
+            color = ColorUtility.TryParseHtmlString(parts[2], out var color) ? color : Color.black
+        };
+       
+    }
+}
