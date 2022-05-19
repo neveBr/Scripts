@@ -1,6 +1,12 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Debug.Log Colored string.
+///      
+///  EXAMPLE:           print($"SUCCESS => " % Colorize.Green)
+///  EXAMPLE:           print($"FAIL => " % Colorize.Red)
+/// </summary>
 namespace Utilities
 {
 
